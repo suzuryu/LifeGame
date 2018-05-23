@@ -1,6 +1,7 @@
 class Cell:
     def __init__(self, isaliving):
         self.isaliving = isaliving
+        self.next_generation = 0
         self.neighbor_cells = []
 
     def check_cells(self):
@@ -10,7 +11,9 @@ class Cell:
                 alive_count += 1
 
         if alive_count <= 1 or 4 <= alive_count:
-            self.isaliving = 1
+            self.next_generation = 0
         else:
-            self.isaliving = 0
+            self.next_generation = 1
 
+    def change_next_generation(self):
+        self.isaliving = self.next_generation
