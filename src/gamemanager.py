@@ -1,3 +1,4 @@
+from msvcrt import getch
 import numpy as np
 
 import cv2
@@ -14,8 +15,9 @@ class GameManager:
         self.init_cells()
 
     def init_cells(self):
+        self.cells = []
         for y in range(self.height):
-            self.cells.append([Cell(np.random.choice([0, 1], p=[0.2, 0.8])) for _ in range(self.width)])
+            self.cells.append([Cell(np.random.choice([0, 1], p=[0.3, 0.7])) for _ in range(self.width)])
 
         for y in range(self.height):
             for x in range(self.width):
@@ -65,14 +67,26 @@ class GameManager:
         hei = int(self.height * scale)
         img = cv2.resize(img, (wid, hei), interpolation=cv2.INTER_NEAREST)
         cv2.imshow("life-game", img)
-        cv2.waitKey(0)
-
-    def start(self):
-        self.to_image(7)
-        self.next()
-
-        print('---- {} ----'.format(self.generation))
 
     def end(self):
         cv2.destroyAllWindows()
-        print('end')
+
+
+    def restart(self):
+        self.end()
+        self.init_cells()
+        self.start()
+
+    def start(self):
+        while True:
+            key = cv2.waitKey(100)
+            if key == ord('r'):
+                self.restart()
+            if key == ord('q'):
+                self.end()
+                return
+            self.to_image(7)
+            self.next()
+
+            print('---- {} ----'.format(self.generation))
+
