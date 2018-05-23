@@ -60,7 +60,7 @@ class GameManager:
     def to_image(self, scale=3.0):
         for_np_array = []
         for y in range(self.height):
-            for_np_array.append([cell.isdying for cell in self.cells[y]])
+            for_np_array.append([cell.is_dying for cell in self.cells[y]])
 
         img = np.array(for_np_array, dtype=np.uint8) * 255
         wid = int(self.width * scale)
@@ -68,11 +68,8 @@ class GameManager:
         img = cv2.resize(img, (wid, hei), interpolation=cv2.INTER_NEAREST)
         cv2.imshow("life-game", img)
 
-    def end(self):
-        cv2.destroyAllWindows()
-
     def restart(self):
-        self.end()
+        cv2.destroyAllWindows()
         self.init_cells()
         self.start()
 
@@ -80,7 +77,7 @@ class GameManager:
         while True:
             key = cv2.waitKey(100)
             if key == ord('q'):
-                self.end()
+                cv2.destroyAllWindows()
                 return
             if key == ord('r'):
                 self.restart()
