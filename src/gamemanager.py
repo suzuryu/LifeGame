@@ -67,9 +67,8 @@ class GameManager:
         cv2.imshow("life-game", img)
         cv2.waitKey(0)
 
-
     def start(self):
-        self.to_image(10)
+        self.to_image(7)
         self.next()
 
         print('---- {} ----'.format(self.generation))
