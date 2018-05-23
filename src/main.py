@@ -1,5 +1,3 @@
-from msvcrt import getch
-
 from src.gamemanager import GameManager
 
 if __name__ == '__main__':

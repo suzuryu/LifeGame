@@ -1,4 +1,3 @@
-from msvcrt import getch
 import numpy as np
 
 import cv2
@@ -19,6 +18,7 @@ class GameManager:
         for y in range(self.height):
             self.cells.append([Cell(np.random.choice([0, 1], p=[0.3, 0.7])) for _ in range(self.width)])
 
+        # set neighborhood cell
         for y in range(self.height):
             for x in range(self.width):
                 if y - 1 > 0:
@@ -59,7 +59,7 @@ class GameManager:
 
     def to_image(self, scale=3.0):
         for_np_array = []
-        for y in range(len(self.cells)):
+        for y in range(self.height):
             for_np_array.append([cell.isdying for cell in self.cells[y]])
 
         img = np.array(for_np_array, dtype=np.uint8) * 255
@@ -71,7 +71,6 @@ class GameManager:
     def end(self):
         cv2.destroyAllWindows()
 
-
     def restart(self):
         self.end()
         self.init_cells()
@@ -80,11 +79,13 @@ class GameManager:
     def start(self):
         while True:
             key = cv2.waitKey(100)
-            if key == ord('r'):
-                self.restart()
             if key == ord('q'):
                 self.end()
                 return
+            if key == ord('r'):
+                self.restart()
+            if key == ord('s'):
+                cv2.waitKey(0)
             self.to_image(7)
             self.next()
 

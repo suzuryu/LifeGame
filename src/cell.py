@@ -1,6 +1,6 @@
 class Cell:
-    def __init__(self, isaliving):
-        self.isdying = isaliving
+    def __init__(self, isdying):
+        self.isdying = isdying
         self.next_generation = self.isdying
         self.neighbor_cells = []
 
