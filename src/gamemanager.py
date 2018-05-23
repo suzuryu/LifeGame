@@ -15,7 +15,7 @@ class GameManager:
 
     def init_cells(self):
         for y in range(self.height):
-            self.cells.append([Cell(np.random.randint(0, 2)) for _ in range(self.width)])
+            self.cells.append([Cell(np.random.choice([0, 1], p=[0.2, 0.8])) for _ in range(self.width)])
 
         for y in range(self.height):
             for x in range(self.width):
@@ -47,18 +47,18 @@ class GameManager:
     def next(self):
         for cells in self.cells:
             for cell in cells:
-                cell.check_cells()
+                    cell.check_cells()
 
         for cells in self.cells:
             for cell in cells:
-                cell.change_next_generation()
+                    cell.change_next_generation()
 
         self.generation += 1
 
     def to_image(self, scale=3.0):
         for_np_array = []
         for y in range(len(self.cells)):
-            for_np_array.append([cell.isaliving for cell in self.cells[y]])
+            for_np_array.append([cell.isdying for cell in self.cells[y]])
 
         img = np.array(for_np_array, dtype=np.uint8) * 255
         wid = int(self.width * scale)
