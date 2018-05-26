@@ -13,10 +13,10 @@ class GameManager:
         self.cells = []
         self.init_cells()
 
-    def init_cells(self):
+    def init_cells(self, prob=0.3):
         self.cells = []
         for y in range(self.height):
-            self.cells.append([Cell(np.random.choice([0, 1], p=[0.3, 0.7])) for _ in range(self.width)])
+            self.cells.append([Cell(np.random.choice([0, 1], p=[prob, 1 - prob])) for _ in range(self.width)])
 
         # set neighborhood cell
         for y in range(self.height):
@@ -86,5 +86,5 @@ class GameManager:
             self.to_image(7)
             self.next()
 
-            print('---- {} ----'.format(self.generation))
+            # print('---- {} ----'.format(self.generation))
 
