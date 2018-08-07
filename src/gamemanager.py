@@ -8,9 +8,10 @@ from src.cell import Cell
 class GameManager:
     def __init__(self, width=30, height=30):
         self.generation = 0
-        self.width = width
-        self.height = height
-        self.cells = []
+        self.width      = width
+        self.height     = height
+        self.cells      = []
+        
         self.init_cells()
 
     def init_cells(self, prob=0.3):
